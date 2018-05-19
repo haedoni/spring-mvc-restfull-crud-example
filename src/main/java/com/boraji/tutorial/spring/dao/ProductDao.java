@@ -2,12 +2,13 @@ package com.boraji.tutorial.spring.dao;
 
 import java.util.List;
 import com.boraji.tutorial.spring.model.Product;
+import com.boraji.tutorial.spring.model.User;
 
 public interface ProductDao {
 
 	int save(Product product);
 	
-	int addLike(String name);
+	int addUser(String user_email, String product_name);
 	
    Product get(int id);
 

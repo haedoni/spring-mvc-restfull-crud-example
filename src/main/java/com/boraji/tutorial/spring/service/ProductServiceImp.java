@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.boraji.tutorial.spring.dao.ProductDao;
 import com.boraji.tutorial.spring.model.Product;
+import com.boraji.tutorial.spring.model.User;
 
 @Service
 @Transactional(readOnly = true)
@@ -23,8 +24,8 @@ public class ProductServiceImp implements ProductService {
    }
    
    @Override
-   public int addLike(String name) {
-      return productDao.addLike(name);
+   public int addUser(String user_email, String product_name) {
+      return productDao.addUser(user_email, product_name);
    }
 
    @Override

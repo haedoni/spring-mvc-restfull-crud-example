@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.boraji.tutorial.spring.model.Product;
+import com.boraji.tutorial.spring.model.User;
 
 @Repository
 public class ProductDaoImp implements ProductDao {
@@ -27,12 +28,35 @@ public class ProductDaoImp implements ProductDao {
    }
    
    @Override
-   public int addLike(String name) {
+   public int addUser(String user_email, String product_name) {
+	  User selectedUsr = null;
+	  Product selectedPrdt = null;
+	  
+	  try {
 	  Session session = sessionFactory.getCurrentSession();
-      Product product2 = session.byId(Product.class).load(name);
-      int likeCnt = product2.getLikeCnt();
-      product2.setLikeCnt(likeCnt++);
-      return product2.getLikeCnt();
+	  Query userQuery = session.createQuery("from users u where u.email=:email");
+	  userQuery.setParameter("email", user_email);
+	  List<User> users = userQuery.list();
+	   
+	  for(User tmpUser : users) {
+		  selectedUsr = tmpUser;
+	  }
+	  
+	  Query productQuery = session.createQuery("from products u where u.name=:name");
+	  productQuery.setParameter("name", product_name);
+	  List<Product> products = productQuery.list();
+	   
+	  for(Product tmpproduct : products) {
+		  selectedPrdt = tmpproduct;
+	  }
+	  
+	  selectedUsr.addProduct(selectedPrdt);
+	  selectedPrdt.addUser(selectedUsr);
+	  } catch(Exception e) {
+		  throw e;
+	  }
+	  
+	  return 1; 
    }
 
    @Override

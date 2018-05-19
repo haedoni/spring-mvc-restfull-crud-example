@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.boraji.tutorial.spring.model.Product;
+import com.boraji.tutorial.spring.model.User;
 import com.boraji.tutorial.spring.service.ProductService;
 
 @CrossOrigin(origins="*")
@@ -33,19 +34,20 @@ public class ProductController {
    
    /*---Add like---*/
    @PostMapping("/product/addLike")
-   public ResponseEntity<?> save(@RequestBody String name) {
-      long id = productService.addLike(name);
-      return ResponseEntity.ok().body("add Like" + id);
+   public ResponseEntity<?> save(@RequestBody String[] user_product) {
+	  System.out.println("addlike = " + user_product[0]);
+      int rs = productService.addUser(user_product[0], user_product[1]);
+      return ResponseEntity.ok().body(rs);
    }
 
-   /*---Get a book by id---*/
+   /*---Get a product by id---*/
    @GetMapping("/product/{id}")
    public ResponseEntity<Product> get(@PathVariable("id") int id) {
       Product product = productService.get(id);
       return ResponseEntity.ok().body(product);
    }
 
-   /*---get all books---*/
+   /*---get all products---*/
    @GetMapping("/product")
    public ResponseEntity<List<Product>> list() {
       List<Product> products = productService.list();
@@ -53,17 +55,10 @@ public class ProductController {
       
    }
 
-   /*---Update a book by id---*/
-   @PutMapping("/product/{id}")
-   public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody Product product) {
-	   productService.update(id, product);
-      return ResponseEntity.ok().body("Book has been updated successfully.");
-   }
-
-   /*---Delete a book by id---*/
+   /*---Delete a product by id---*/
    @DeleteMapping("/product/{id}")
    public ResponseEntity<?> delete(@PathVariable("id") int id) {
 	   productService.delete(id);
-      return ResponseEntity.ok().body("Book has been deleted successfully.");
+      return ResponseEntity.ok().body("Product has been deleted successfully.");
    }
 }
