@@ -4,7 +4,9 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <wb-resource deploy-path="/" source-path="/src/main/java/com/boraji/tutorial/spring/web-resources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/resources"/>
         <property name="java-output-path" value="/spring-mvc-session-scope-example/target/classes"/>
-        <property name="context-root" value="spring-mvc-restfull-crud-example"/>
+        <property name="context-root" value="/"/>
     </wb-module>
 </project-modules>

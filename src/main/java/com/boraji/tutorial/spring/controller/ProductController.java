@@ -32,7 +32,7 @@ public class ProductController {
    }
    
    /*---Add like---*/
-   @PostMapping("/product")
+   @PostMapping("/product/addLike")
    public ResponseEntity<?> save(@RequestBody String name) {
       long id = productService.addLike(name);
       return ResponseEntity.ok().body("add Like" + id);

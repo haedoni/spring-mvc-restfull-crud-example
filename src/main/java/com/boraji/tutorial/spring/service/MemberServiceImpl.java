@@ -23,25 +23,10 @@ public class MemberServiceImpl implements MemberService {
    }
 
    @Override
-   public Member get(String userid) {
-      return memberDao.get(userid);
+   public Member get(String userId) {
+      return memberDao.get(userId);
    }
 
-   @Override
-   public List<Member> list() {
-      return memberDao.list();
-   }
 
-   @Transactional
-   @Override
-   public void update(int id, Member member) {
-	   memberDao.update(id, member);
-   }
-
-   @Transactional
-   @Override
-   public void delete(int id) {
-	   memberDao.delete(id);
-   }
 
 }

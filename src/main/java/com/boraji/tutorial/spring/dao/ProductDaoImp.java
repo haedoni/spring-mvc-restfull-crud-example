@@ -30,9 +30,9 @@ public class ProductDaoImp implements ProductDao {
    public int addLike(String name) {
 	  Session session = sessionFactory.getCurrentSession();
       Product product2 = session.byId(Product.class).load(name);
-      int likeCnt = product2.getLike();
-      product2.setLike(likeCnt++);
-      return product2.getLike();
+      int likeCnt = product2.getLikeCnt();
+      product2.setLikeCnt(likeCnt++);
+      return product2.getLikeCnt();
    }
 
    @Override

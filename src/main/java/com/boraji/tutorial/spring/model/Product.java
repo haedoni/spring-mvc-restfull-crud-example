@@ -12,7 +12,7 @@ public class Product {
    private Integer price;
    @Column(length = 1000)
    private String imageLink;
-   private Integer like;
+   private Integer likeCnt;
    
 
    public Integer getId() {
@@ -47,12 +47,12 @@ public class Product {
       this.imageLink = imageLink;
    }
    
-   public Integer getLike() {
-      return like;
+   public Integer getLikeCnt() {
+      return likeCnt;
    }
 
-   public void setLike(Integer like) {
-      this.like = like;
+   public void setLikeCnt(Integer likeCnt) {
+      this.likeCnt = likeCnt;
    }
 
 }

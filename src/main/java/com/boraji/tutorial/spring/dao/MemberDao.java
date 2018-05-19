@@ -7,11 +7,6 @@ import com.boraji.tutorial.spring.model.Member;
 public interface MemberDao {
 	int save(Member member);
 
-	Member get(String userid);
+	Member get(String userId);
 	
-	   List<Member> list();
-
-	   void update(int id, Member member);
-
-	   void delete(int id);
 }

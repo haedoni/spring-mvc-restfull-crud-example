@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.boraji.tutorial.spring.model.Member;
+import com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type;
 
 @Repository
 public class MemberDaoImpl implements MemberDao {
@@ -27,37 +28,17 @@ public class MemberDaoImpl implements MemberDao {
    }
 
    @Override
-   public Member get(String userid) {
-      return sessionFactory.getCurrentSession().get(Member.class, userid);
+   public Member get(String userId) {
+	   Member mem = null;
+	   Session session = sessionFactory.getCurrentSession();
+	   Query query = session.createQuery("from Member m where m.userId=:userId");
+	   query.setParameter("userId", userId);
+	   List<Member> members = query.list();
+	   
+	   for(Member tmpMem : members) {
+		   mem = tmpMem;
+	   }
+	   return mem;
    }
-
-   @Override
-   public List<Member> list() {
-      Session session = sessionFactory.getCurrentSession();
-      CriteriaBuilder cb = session.getCriteriaBuilder();
-      CriteriaQuery<Member> cq = cb.createQuery(Member.class);
-      Root<Member> root = cq.from(Member.class);
-      cq.select(root);
-      Query<Member> query = session.createQuery(cq);
-      return query.getResultList();
-   }
-
-   @Override
-   public void update(int id, Member member) {
-      Session session = sessionFactory.getCurrentSession();
-      Member product2 = session.byId(Member.class).load(id);
-      product2.setName(member.getName());
-      product2.setPassword(member.getPassword());
-      product2.setEmail(member.getEmail());
-      session.flush();
-   }
-
-   @Override
-   public void delete(int id) {
-      Session session = sessionFactory.getCurrentSession();
-      Member product = session.byId(Member.class).load(id);
-      session.delete(product);
-   }
-
    
 }
