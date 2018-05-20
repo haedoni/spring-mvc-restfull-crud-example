@@ -6,6 +6,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -29,16 +30,18 @@ public class UserDaoImpl implements UserDao {
 
    @Override
    public User get(String userId) {
-	   User usr = null;
+	   User result = null;
 	   Session session = sessionFactory.getCurrentSession();
 	   Query query = session.createQuery("from Member m where m.userId=:userId");
 	   query.setParameter("userId", userId);
 	   List<User> users = query.list();
 	   
 	   for(User tmpMem : users) {
-		   usr = tmpMem;
+		   result = tmpMem;
 	   }
-	   return usr;
+	   Hibernate.initialize(result.getProducts());
+	   
+	   return result;
    }
    
 }

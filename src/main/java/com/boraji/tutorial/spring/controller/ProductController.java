@@ -1,7 +1,9 @@
 package com.boraji.tutorial.spring.controller;
 
 import java.util.List;
+import java.util.Map;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,9 +37,8 @@ public class ProductController {
    
    /*---Add like---*/
    @PostMapping("/product/addLike")
-   public ResponseEntity<?> save(@RequestBody String[] user_product) {
-	  System.out.println("addlike = " + user_product[0]);
-      int rs = productService.addUser(user_product[0], user_product[1]);
+   public ResponseEntity<?> save(@RequestParam Map body) {
+      int rs = productService.addUser(body.get("user").toString(), body.get("product").toString());
       return ResponseEntity.ok().body(rs);
    }
 
@@ -44,9 +46,18 @@ public class ProductController {
    @GetMapping("/product/{id}")
    public ResponseEntity<Product> get(@PathVariable("id") int id) {
       Product product = productService.get(id);
-      return ResponseEntity.ok().body(product);
+      Product productObj = new Product(product);
+      return ResponseEntity.ok().body(productObj);
    }
 
+   /*---get all products liked by user---*/
+   @GetMapping("/likedProduct/{id}")
+   public ResponseEntity<List<Product>> listProductLiked(@PathVariable("id") int id) {
+      List<Product> products = productService.listProductLiked(id);
+      return ResponseEntity.ok().body(products);
+      
+   }
+   
    /*---get all products---*/
    @GetMapping("/product")
    public ResponseEntity<List<Product>> list() {

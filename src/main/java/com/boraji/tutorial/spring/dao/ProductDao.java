@@ -12,6 +12,8 @@ public interface ProductDao {
 	
    Product get(int id);
 
+   List<Product> listProductLiked(int id);
+   
    List<Product> list();
 
    void update(int id, Product product);

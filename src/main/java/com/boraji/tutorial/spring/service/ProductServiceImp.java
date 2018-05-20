@@ -34,6 +34,11 @@ public class ProductServiceImp implements ProductService {
    }
 
    @Override
+   public List<Product> listProductLiked(int id){
+	   return productDao.listProductLiked(id);
+   }
+   
+   @Override
    public List<Product> list() {
       return productDao.list();
    }

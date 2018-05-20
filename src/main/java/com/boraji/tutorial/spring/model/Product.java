@@ -1,42 +1,53 @@
 package com.boraji.tutorial.spring.model;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.*;
 
-@Entity(name = "Products")
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+//@JsonIgnoreProperties(value= {"user"})
+@Entity(name = "PRODUCT")
 public class Product {
+//public class Product implements Serializable{
 
    @Id
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   @GeneratedValue
    @Column(name="PRODUCT_ID")
    private Integer id;
-   @Id
+   @Column(name = "NAME")
    private String name;
+   @Column(name = "PRICE")
    private Integer price;
-   @Column(length = 1000)
+   @Column(name="IMAGELINK", length = 1000)
    private String imageLink;
    
-   private Set<User> users = new HashSet<User>();
+//   @ManyToMany(fetch=FetchType.LAZY, mappedBy = "products")
+//   private List<User> users = new ArrayList<>();
+   
+   public Product() { }
+   
+   public Product(Product prodt) {
+	   id = prodt.getId();
+	   name = prodt.getName();
+	   price = prodt.getPrice();
+	   imageLink = prodt.getImageLink();
+//	   users = prodt.getUsers();
+   }
    
    public Integer getId() {
       return id;
    }
-
-   @ManyToMany(cascade = CascadeType.ALL)
-   @JoinTable(
-           name = "USERS_PRODUCTS",
-           joinColumns = @JoinColumn(name = "PRODUCT_ID"),
-           inverseJoinColumns = @JoinColumn(name = "USER_ID")
-   )
-   public Set<User> getUsers(){
-	   return users;
-   }
    
-   public void addUser(User user) {
-	   this.users.add(user);
-   }
+//   public List<User> getUsers(){
+//	   return users;
+//   }
+//   
+//   public void addUser(User user) {
+//	   this.users.add(user);
+//   }
    
    public void setId(Integer id) {
       this.id = id;

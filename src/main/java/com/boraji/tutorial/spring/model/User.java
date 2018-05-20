@@ -1,27 +1,50 @@
 package com.boraji.tutorial.spring.model;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
 
-@Entity(name = "users")
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+//@JsonIgnoreProperties(value= {"product"})
+@Entity(name = "USER")
 public class User {
+//public class User implements Serializable {
 
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    @Column(name = "USER_ID")
    private Integer id;
-   @Id
+   @Column(name = "EMAIL")
    private String email;
+   @Column(name = "NAME")
    private String name;
+   @Column(name = "PROVIDER")
    private String provider;
+   @Column(name = "PROVIDER_ID")
    private String provider_id;
+   @Column(name = "PROVIDER_PIC")
    private String provider_pic;
+   @Column(name = "TOKEN")
    private String token;
    
-   private Set<Product> products = new HashSet<Product>();
+   @ManyToMany(cascade = CascadeType.ALL)
+   @JoinTable(name = "USER_PRODUCT",
+           joinColumns = {@JoinColumn(name = "USER_ID")},
+           inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID")})
+   private List<Product> products = new ArrayList<>();
 
+   public User() {  }
+   
+   public User(User usr) {
+      email = usr.getEmail();
+      name = usr.getName();
+      products = usr.getProducts();
+   }
    
    public int getId() {
       return id;
@@ -31,8 +54,8 @@ public class User {
 	   this.products.add(product);
    }
    
-   @ManyToMany(mappedBy = "users")
-   public Set<Product> getProducts(){
+   
+   public List<Product> getProducts(){
 	   return products;
    }
    

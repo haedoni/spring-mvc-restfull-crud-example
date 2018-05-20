@@ -26,13 +26,7 @@ public class UserController {
 
    /*---Add new user---*/
    @PostMapping("/signup")
-   public ResponseEntity<?> save(@RequestBody User user) {
-	   System.out.println(user.getEmail());
-	   System.out.println(user.getName());
-	   System.out.println(user.getProvider());
-	   System.out.println(user.getProvider_id());
-	   System.out.println(user.getProvider_pic());
-	      
+   public ResponseEntity<?> save(@RequestBody User user) {	      
 	   long id = memberService.save(user);
      
 	   return ResponseEntity.ok().body(user);
