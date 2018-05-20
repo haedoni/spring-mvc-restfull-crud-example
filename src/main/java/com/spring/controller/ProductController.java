@@ -21,8 +21,8 @@ import com.spring.model.Product;
 import com.spring.model.User;
 import com.spring.service.ProductService;
 
-@CrossOrigin(origins="*")
 @RestController
+@CrossOrigin(origins="*")
 public class ProductController {
 
    @Autowired

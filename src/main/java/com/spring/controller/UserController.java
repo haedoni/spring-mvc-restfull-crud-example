@@ -17,8 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.spring.model.User;
 import com.spring.service.UserService;
 
-@CrossOrigin(origins="*")
+
 @RestController
+@CrossOrigin(origins="*")
 public class UserController {
 
    @Autowired

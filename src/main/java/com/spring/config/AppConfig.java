@@ -21,8 +21,8 @@ import static org.hibernate.cfg.Environment.*;
 @Configuration
 @PropertySource("classpath:db.properties")
 @EnableTransactionManagement
-@ComponentScans(value = { @ComponentScan("com.boraji.tutorial.spring.dao"),
-      @ComponentScan("com.boraji.tutorial.spring.service") })
+@ComponentScans(value = { @ComponentScan("com.spring.dao"),
+      @ComponentScan("com.spring.service") })
 public class AppConfig {
 
    @Autowired
@@ -53,7 +53,7 @@ public class AppConfig {
 
       factoryBean.setHibernateProperties(props);
       factoryBean.setAnnotatedClasses(User.class, Product.class);
-      factoryBean.setPackagesToScan("com.boraji.tutorial.spring.model");
+      factoryBean.setPackagesToScan("com.spring.model");
 
       return factoryBean;
    }
